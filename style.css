@@ -1,0 +1,301 @@
+:root {
+    --primary-color: #ff9a9e;
+    --secondary-color: #fecfef;
+    --accent-color: #a18cd1;
+    --glass-bg: rgba(255, 255, 255, 0.15);
+    --glass-border: rgba(255, 255, 255, 0.2);
+    --text-color: #fff;
+    --dark-text: #333;
+    
+    /* Ping Colors */
+    --ping-good: #4ade80;   /* Green */
+    --ping-mid: #fbbf24;    /* Orange */
+    --ping-bad: #ef4444;    /* Red */
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Fredoka', sans-serif;
+}
+
+body {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #1a1a2e;
+    overflow-x: hidden;
+}
+
+/* Background Animation */
+.background-anime {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('https://w.wallhaven.cc/full/pk/wallhaven-pkkmgp.jpg') no-repeat center center/cover;
+    filter: blur(8px);
+    z-index: -2;
+    animation: bg-pan 60s infinite alternate;
+}
+
+@keyframes bg-pan {
+    0% { transform: scale(1.1); }
+    100% { transform: scale(1.2); }
+}
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4);
+    z-index: -1;
+}
+
+.container {
+    width: 90%;
+    max-width: 500px;
+    padding: 20px;
+}
+
+.glass-effect {
+    background: var(--glass-bg);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid var(--glass-border);
+    border-radius: 24px;
+    padding: 30px;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+    text-align: center;
+    color: var(--text-color);
+    transition: transform 0.3s ease;
+}
+
+.glass-effect:hover {
+    transform: translateY(-5px);
+}
+
+/* Header */
+.icon-wrapper img {
+    width: 100px;
+    height: 100px;
+    border-radius: 20px;
+    border: 3px solid rgba(255,255,255,0.5);
+    margin-bottom: 15px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+    100% { transform: translateY(0px); }
+}
+
+.anime-title {
+    font-family: 'Nunito', sans-serif;
+    font-weight: 700;
+    font-size: 2rem;
+    margin-bottom: 5px;
+    background: linear-gradient(to right, #fff, #fecfef);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 2px 2px 8px rgba(0,0,0,0.3);
+}
+
+.subtitle {
+    font-size: 0.9rem;
+    color: rgba(255,255,255,0.8);
+    margin-bottom: 20px;
+}
+
+.status-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 8px 20px;
+    border-radius: 50px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    gap: 8px;
+    transition: all 0.3s ease;
+}
+
+.status-badge.online {
+    background: rgba(74, 222, 128, 0.2);
+    color: #4ade80;
+    border: 1px solid #4ade80;
+}
+
+.status-badge.offline {
+    background: rgba(239, 68, 68, 0.2);
+    color: #ef4444;
+    border: 1px solid #ef4444;
+}
+
+/* Stats Grid */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+    margin: 25px 0;
+}
+
+.stat-item {
+    background: rgba(255,255,255,0.1);
+    padding: 15px;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+}
+
+.stat-item i {
+    font-size: 1.2rem;
+    color: var(--secondary-color);
+}
+
+.stat-item span {
+    font-weight: 700;
+    font-size: 1.1rem;
+}
+
+/* Dynamic Ping Colors */
+.ping-green { color: var(--ping-good); text-shadow: 0 0 5px rgba(74, 222, 128, 0.5); }
+.ping-orange { color: var(--ping-mid); text-shadow: 0 0 5px rgba(251, 191, 36, 0.5); }
+.ping-red { color: var(--ping-bad); text-shadow: 0 0 5px rgba(239, 68, 68, 0.5); }
+
+.stat-item small {
+    font-size: 0.8rem;
+    color: rgba(255,255,255,0.6);
+}
+
+/* Improved Player List */
+.player-list-section {
+    background: rgba(0,0,0,0.2);
+    border-radius: 15px;
+    padding: 15px;
+    margin-bottom: 20px;
+}
+
+.player-list-section h3 {
+    font-size: 1rem;
+    margin-bottom: 10px;
+    color: var(--secondary-color);
+    text-align: left;
+}
+
+.player-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    min-height: 40px;
+}
+
+/* User Card Style */
+.player-chip {
+    background: rgba(255,255,255,0.1);
+    padding: 8px 15px;
+    border-radius: 12px;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    border: 1px solid rgba(255,255,255,0.1);
+    animation: fadeIn 0.5s ease;
+    transition: transform 0.2s;
+}
+
+.player-chip:hover {
+    background: rgba(255,255,255,0.2);
+    transform: translateY(-2px);
+}
+
+.player-chip img {
+    width: 32px;
+    height: 32px;
+    border-radius: 6px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+.player-info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    line-height: 1.2;
+}
+
+.player-name {
+    font-weight: bold;
+    color: #fff;
+}
+
+.player-time {
+    font-size: 0.75rem;
+    color: rgba(255,255,255,0.7);
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.9); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+.empty-message {
+    font-size: 0.8rem;
+    color: rgba(255,255,255,0.4);
+    font-style: italic;
+}
+
+/* Footer IP */
+.server-address {
+    background: rgba(0,0,0,0.3);
+    padding: 10px;
+    border-radius: 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.9rem;
+}
+
+.server-address code {
+    font-family: 'Consolas', monospace;
+    color: var(--accent-color);
+    background: rgba(255,255,255,0.05);
+    padding: 2px 6px;
+    border-radius: 4px;
+}
+
+.copy-btn {
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.copy-btn:hover {
+    transform: scale(1.1);
+    color: var(--primary-color);
+}
+
+/* Mobile Responsive */
+@media (max-width: 480px) {
+    .container {
+        width: 100%;
+        padding: 10px;
+    }
+    
+    .glass-effect {
+        padding: 20px;
+    }
+
+    .anime-title {
+        font-size: 1.5rem;
+    }
+}
