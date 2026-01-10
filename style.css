@@ -1,11 +1,11 @@
 :root {
-    --primary-color: #ff9a9e;
-    --secondary-color: #fecfef;
-    --accent-color: #a18cd1;
-    --glass-bg: rgba(255, 255, 255, 0.15);
-    --glass-border: rgba(255, 255, 255, 0.2);
-    --text-color: #fff;
-    --dark-text: #333;
+    --primary-color: #c8e35b;   /* Sky Blue (Rem) */
+    --secondary-color: #2f80ed; /* Deep Blue */
+    --accent-color: #ffffff;    /* White */
+    --glass-bg: rgba(255, 255, 255, 0.2); /* Lighter Glass */
+    --glass-border: rgba(255, 255, 255, 0.4);
+    --text-color: #6cc612;
+    --dark-text: #2c3e50;
     
     /* Ping Colors */
     --ping-good: #4ade80;   /* Green */
@@ -17,7 +17,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Fredoka', sans-serif;
+    font-family: 'Kanit', 'Nunito', sans-serif;
 }
 
 body {
@@ -25,8 +25,9 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    background: #1a1a2e;
-    overflow-x: hidden;
+    background: #0f2027; /* Fallback Dark Blue */
+    overflow: hidden; /* Hide scrollbars for animation */
+    position: relative;
 }
 
 /* Background Animation */
@@ -36,16 +37,69 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    background: url('https://w.wallhaven.cc/full/pk/wallhaven-pkkmgp.jpg') no-repeat center center/cover;
-    filter: blur(8px);
+    /* Use local generated bg or fallback URL */
+    background: url('./bg.png'), url('https://w.wallhaven.cc/full/pk/wallhaven-pkkmgp.jpg'); 
+    background-size: cover;
+    background-position: center;
+    filter: blur(4px);
     z-index: -2;
-    animation: bg-pan 60s infinite alternate;
+    animation: bg-breathe 20s infinite alternate;
 }
 
-@keyframes bg-pan {
-    0% { transform: scale(1.1); }
-    100% { transform: scale(1.2); }
+@keyframes bg-breathe {
+    0% { transform: scale(1.05); }
+    100% { transform: scale(1.15); }
 }
+
+/* Walking Rem Animation */
+.rem-container {
+    position: fixed;
+    bottom: -20px;
+    left: -150px; /* Start off-screen */
+    width: 150px;
+    height: auto;
+    z-index: 10;
+    pointer-events: none; /* Let clicks pass through */
+    animation: walk-across 30s linear infinite;
+}
+
+.rem-img {
+    width: 100%;
+    height: auto;
+    filter: drop-shadow(0 0 10px rgba(36, 25, 25, 0.5));
+    /* Add a little bobbing bounce while walking */
+    animation: bounce 0.6s ease-in-out infinite alternate;
+}
+
+@keyframes walk-across {
+    0% {
+        left: -150px;
+        transform: scaleX(1); /* Face Right */
+    }
+    45% {
+        left: 100%; /* Walk to right edge */
+        transform: scaleX(1);
+    }
+    50% {
+        left: 100%;
+        transform: scaleX(-1); /* Turn Left */
+    }
+    95% {
+        left: -150px; /* Walk to left edge */
+        transform: scaleX(-1);
+    }
+    100% {
+        left: -150px;
+        transform: scaleX(1); /* Reset */
+    }
+}
+
+@keyframes bounce {
+    from { transform: translateY(0); }
+    to { transform: translateY(-10px); }
+}
+
+/* Snow Effect (Optional, simulated with simple particles if needed via JS or simple CSS) */
 
 .overlay {
     position: fixed;
@@ -53,7 +107,7 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.4);
+    background: radial-gradient(circle, rgba(47, 128, 237, 0.1) 0%, rgba(15, 32, 39, 0.6) 100%);
     z-index: -1;
 }
 
@@ -61,16 +115,17 @@ body {
     width: 90%;
     max-width: 500px;
     padding: 20px;
+    z-index: 5;
 }
 
 .glass-effect {
     background: var(--glass-bg);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
     border: 1px solid var(--glass-border);
     border-radius: 24px;
     padding: 30px;
-    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
     text-align: center;
     color: var(--text-color);
     transition: transform 0.3s ease;
@@ -78,16 +133,17 @@ body {
 
 .glass-effect:hover {
     transform: translateY(-5px);
+    box-shadow: 0 15px 50px rgba(86, 204, 242, 0.2);
 }
 
 /* Header */
 .icon-wrapper img {
     width: 100px;
     height: 100px;
-    border-radius: 20px;
-    border: 3px solid rgba(255,255,255,0.5);
+    border-radius: 50%; /* Circle for anime style */
+    border: 4px solid var(--primary-color);
     margin-bottom: 15px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    box-shadow: 0 0 20px rgba(56, 68, 72, 0.4);
     animation: float 3s ease-in-out infinite;
 }
 
@@ -98,43 +154,54 @@ body {
 }
 
 .anime-title {
-    font-family: 'Nunito', sans-serif;
+    font-family: 'Kanit', sans-serif;
     font-weight: 700;
     font-size: 2rem;
     margin-bottom: 5px;
-    background: linear-gradient(to right, #fff, #fecfef);
+    /* Blue Gradient Text */
+    background: linear-gradient(to right, #141111, #1f2426);
     -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    text-shadow: 2px 2px 8px rgba(0,0,0,0.3);
+    text-shadow: 0 0 10px rgba(24, 32, 44, 0.3);
 }
-
+.anime-title em {
+    font-size: 1.9rem;
+    color: white;
+    text-shadow: 2px 2px 2px #141111;
+    background-color: #b9ff15;
+    border-radius: 1.1px;
+}
 .subtitle {
     font-size: 0.9rem;
-    color: rgba(255,255,255,0.8);
+    color: rgba(255,255,255,0.9);
     margin-bottom: 20px;
+    letter-spacing: 1px;
 }
 
 .status-badge {
     display: inline-flex;
     align-items: center;
-    padding: 8px 20px;
+    padding: 8px 25px;
     border-radius: 50px;
     font-weight: 600;
     font-size: 0.9rem;
     gap: 8px;
     transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
 }
 
 .status-badge.online {
     background: rgba(74, 222, 128, 0.2);
     color: #4ade80;
     border: 1px solid #4ade80;
+    box-shadow: 0 0 15px rgba(74, 222, 128, 0.2);
 }
 
 .status-badge.offline {
     background: rgba(239, 68, 68, 0.2);
     color: #ef4444;
     border: 1px solid #ef4444;
+    box-shadow: 0 0 15px rgba(239, 68, 68, 0.2);
 }
 
 /* Stats Grid */
@@ -146,48 +213,61 @@ body {
 }
 
 .stat-item {
-    background: rgba(255,255,255,0.1);
+    background: rgba(255,255,255,0.15);
     padding: 15px;
-    border-radius: 15px;
+    border-radius: 18px;
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 5px;
+    border: 1px solid rgba(255,255,255,0.1);
+    transition: background 0.3s;
+}
+
+.stat-item:hover {
+    background: rgba(255,255,255,0.25);
 }
 
 .stat-item i {
     font-size: 1.2rem;
-    color: var(--secondary-color);
+    color: var(--primary-color);
+    margin-bottom: 2px;
 }
 
 .stat-item span {
     font-weight: 700;
     font-size: 1.1rem;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.2);
 }
 
 /* Dynamic Ping Colors */
-.ping-green { color: var(--ping-good); text-shadow: 0 0 5px rgba(74, 222, 128, 0.5); }
-.ping-orange { color: var(--ping-mid); text-shadow: 0 0 5px rgba(251, 191, 36, 0.5); }
-.ping-red { color: var(--ping-bad); text-shadow: 0 0 5px rgba(239, 68, 68, 0.5); }
+.ping-green { color: var(--ping-good); }
+.ping-orange { color: var(--ping-mid); }
+.ping-red { color: var(--ping-bad); }
 
 .stat-item small {
-    font-size: 0.8rem;
-    color: rgba(255,255,255,0.6);
+    font-size: 0.75rem;
+    color: rgba(255,255,255,0.8);
+    text-transform: uppercase;
 }
 
 /* Improved Player List */
 .player-list-section {
     background: rgba(0,0,0,0.2);
-    border-radius: 15px;
-    padding: 15px;
+    border-radius: 20px;
+    padding: 20px;
     margin-bottom: 20px;
+    border: 1px solid rgba(255,255,255,0.1);
 }
 
 .player-list-section h3 {
     font-size: 1rem;
-    margin-bottom: 10px;
-    color: var(--secondary-color);
+    margin-bottom: 15px;
+    color: var(--primary-color);
     text-align: left;
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }
 
 .player-list {
@@ -195,32 +275,34 @@ body {
     flex-wrap: wrap;
     gap: 10px;
     justify-content: center;
-    min-height: 40px;
+    min-height: 50px;
 }
 
 /* User Card Style */
 .player-chip {
-    background: rgba(255,255,255,0.1);
-    padding: 8px 15px;
+    background: rgba(255,255,255,0.15);
+    padding: 6px 12px;
     border-radius: 12px;
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     display: flex;
     align-items: center;
-    gap: 12px;
-    border: 1px solid rgba(255,255,255,0.1);
+    gap: 10px;
+    border: 1px solid rgba(255,255,255,0.2);
     animation: fadeIn 0.5s ease;
-    transition: transform 0.2s;
+    transition: transform 0.2s, background 0.2s;
+    cursor: default;
 }
 
 .player-chip:hover {
-    background: rgba(255,255,255,0.2);
-    transform: translateY(-2px);
+    background: rgba(255,255,255,0.3);
+    transform: translateY(-3px) scale(1.02);
+    border-color: var(--primary-color);
 }
 
 .player-chip img {
-    width: 32px;
-    height: 32px;
-    border-radius: 6px;
+    width: 28px;
+    height: 28px;
+    border-radius: 8px;
     box-shadow: 0 2px 5px rgba(0,0,0,0.2);
 }
 
@@ -232,63 +314,73 @@ body {
 }
 
 .player-name {
-    font-weight: bold;
+    font-weight: 700;
     color: #fff;
 }
 
 .player-time {
-    font-size: 0.75rem;
-    color: rgba(255,255,255,0.7);
+    font-size: 0.7rem;
+    color: rgba(255,255,255,0.8);
 }
 
 @keyframes fadeIn {
-    from { opacity: 0; transform: scale(0.9); }
+    from { opacity: 0; transform: scale(0.8); }
     to { opacity: 1; transform: scale(1); }
 }
 
 .empty-message {
     font-size: 0.8rem;
-    color: rgba(255,255,255,0.4);
+    color: rgba(255,255,255,0.5);
     font-style: italic;
+    padding: 10px;
 }
 
 /* Footer IP */
 .server-address {
-    background: rgba(0,0,0,0.3);
-    padding: 10px;
-    border-radius: 12px;
+    background: rgba(255,255,255,0.1);
+    padding: 12px;
+    border-radius: 15px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     font-size: 0.9rem;
+    border: 1px solid rgba(255,255,255,0.1);
+}
+
+.server-address span {
+    color: rgba(255,255,255,0.8);
 }
 
 .server-address code {
     font-family: 'Consolas', monospace;
-    color: var(--accent-color);
-    background: rgba(255,255,255,0.05);
-    padding: 2px 6px;
-    border-radius: 4px;
+    color: #fff;
+    background: rgba(47, 128, 237, 0.3); /* Blue tint bg */
+    padding: 4px 8px;
+    border-radius: 6px;
+    font-weight: bold;
+    border: 1px solid rgba(86, 204, 242, 0.4);
 }
 
 .copy-btn {
     background: none;
     border: none;
-    color: white;
+    color: var(--primary-color);
     cursor: pointer;
-    transition: transform 0.2s;
+    transition: transform 0.2s, color 0.2s;
+    font-size: 1.1rem;
 }
 
 .copy-btn:hover {
-    transform: scale(1.1);
-    color: var(--primary-color);
+    transform: scale(1.2);
+    color: #fff;
+    text-shadow: 0 0 10px var(--primary-color);
 }
 
 /* Mobile Responsive */
 @media (max-width: 480px) {
     .container {
         width: 100%;
-        padding: 10px;
+        padding: 15px;
     }
     
     .glass-effect {
@@ -297,5 +389,14 @@ body {
 
     .anime-title {
         font-size: 1.5rem;
+    }
+    
+    .stats-grid {
+        gap: 10px;
+    }
+    
+    .rem-container {
+        width: 100px; /* Smaller Rem on mobile */
+        bottom: -15px;
     }
 }
