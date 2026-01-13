@@ -33,7 +33,7 @@ try {
     const serverIcon = document.getElementById('server-icon');
     const ipDisplay = document.getElementById('server-ip-display');
 
-    if (ipDisplay) ipDisplay.textContent = 'models-kirk.gl.joinmc.link';
+    if (ipDisplay) ipDisplay.textContent = 'just-restaurant.gl.joinmc.link';
 
     // Listener
     const statusRef = ref(db, 'status');
@@ -134,3 +134,4 @@ window.copyIp = function () {
         setTimeout(() => { ipDisplay.textContent = originalText; }, 1500);
     });
 }
+
