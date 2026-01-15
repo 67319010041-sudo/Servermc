@@ -3,72 +3,116 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cave Horror Server Status</title>
-    <!-- Google Fonts for Anime Style -->
-    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;600&family=Nunito:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+    <title>NESTLE Server Status</title>
+  
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;700&family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;500;700&family=Sarabun:wght@300;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+  
+    <link rel="stylesheet" href="anime-theme.css">
 </head>
 <body>
 
-    <div class="background-anime"></div>
-    <div class="overlay"></div>
+  
+    <div class="bg-layer"></div>
+    <div class="grid-overlay"></div>
+    
+    
+    <!-- <div class="deco-line-left">
+        <div class="deco-text">SERVER STATUS // SYSTEM: ONLINE</div>
+    </div> -->
 
-    <!-- Walking Rem Character -->
-    <div class="rem-container">
-        <img src="./rem.png" alt="Rem Walking" class="rem-img">
-    </div>
 
-    <div class="container">
-        <div class="card glass-effect">
-            <!-- Server Header -->
-            <div class="server-header">
-                <div class="icon-wrapper">
-                    <img id="server-icon" src="./K.png" alt="Server Icon">
+    <div class="poster-container">
+        
+      
+        <div class="info-section">
+            
+        
+            <div class="header-group">
+                <div class="sub-label">เซิฟ มาย คราฟ เเบบ Private </div>
+                <h1 class="main-title">เซิฟส่วนตัว<br>ของเเก๊ง <span class="highlight">NESTLE</span></h1>
+                <p class="desc">    อยากจะเล่นด้วยมั้ยจ๊ะ   </p>
+            </div>
+
+       
+            <div class="stats-row">
+                <div class="data-point">
+                 
+                    <div id="status-indicator" style="display:none;"></div> 
                 </div>
-                <h1 class="anime-title">  <em>เซิฟส่วนตัวของเเก๊ง Nestle</em> </h1>
-                <p class="subtitle">เอาชีวิตรอดจากผีปัญญาอ่อน</p>
-                <div id="status-indicator" class="status-badge offline">
-                    <i class="fas fa-circle"></i> <span id="server-status-text">ตรวจสอบ...</span>
+
+                <div class="data-point">
+                    <i class="fas fa-users icon"></i>
+                    <div class="data-text">
+                        <span class="label">ผู้เล่น</span>
+                        <span id="player-count" class="value">- / -</span>
+                    </div>
+                </div>
+
+                <div class="data-point">
+                    <i class="fas fa-code-branch icon"></i>
+                    <div class="data-text">
+                        <span class="label">เวอร์ชั่น</span>
+                        <span id="version" class="value"> - -</span>
+                    </div>
+                </div>
+                
+                <div class="data-point">
+                    <i class="fas fa-wifi icon"></i>
+                    <div class="data-text">
+                        <span class="label">ปิงเซิฟเวอร์</span>
+                        <span id="ping" class="value">-- ms</span>
+                    </div>
                 </div>
             </div>
 
-            <!-- Stats Grid -->
-            <div class="stats-grid">
-                <div class="stat-item">
-                    <i class="fas fa-users"></i>
-                    <span id="player-count">0 / 0</span>
-                    <small>ผู้เล่น</small>
-                </div>
-                <div class="stat-item">
-                    <i class="fas fa-signal"></i>
-                    <span id="ping">-- ms</span>
-                    <small>ปวยหัวคิง</small>
-                </div>
-                <div class="stat-item">
-                    <i class="fas fa-code-branch"></i>
-                    <span id="version">1.19.2</span>
-                    <small>เวอร์ชั่น</small>
+           
+            <div class="player-section">
+                <div class="section-title"><i class="fas fa-user-astronaut"></i>ผู้เล่นที่กำลังเล่นอยู่ในเซิฟเวอร์</div>
+                <div id="player-list" class="player-grid">
+                    <!-- JS Injects Chips Here -->
+                    <div class="empty-message">กำลังโหลด...</div>
                 </div>
             </div>
 
-            <!-- Player List Section -->
-            <div class="player-list-section">
-                <h3><i class="fas fa-user-friends"></i> คนที่กำลังเล่นอยู่...</h3>
-                <div id="player-list" class="player-list">
-                    <div class="empty-message">ไม่มีคนเล่นโว้ย...</div>
-                </div>
+           
+            <div class="ip-box">
+                <div class="ip-label">IP เซิฟเวอร์</div>
+                <button onclick="copyIp()" class="ip-display" title="Click to Copy">
+                    <span id="server-ip-display">just-restaurant.gl.joinmc.link</span>
+                    <i class="fas fa-copy"></i>
+                </button>
             </div>
 
-            <!-- Footer / IP Info -->
-            <div class="server-address">
-                <span>Server URL:</span>
-                <code id="server-ip-display">รอ IP เเปปดิน้อง...</code>
-                <button onclick="copyIp()" class="copy-btn" title="Copy IP"><i class="fas fa-copy"></i></button>
+           
+            <img id="server-icon" src="" style="display:none;" alt="hidden-icon">
+
+        </div>
+
+<!--        
+        <div class="character-section">
+            
+            <div class="modpack-badge">
+               
+                 <img id="modpack-image" src="https://assets.sticky.gg/icons/minecraft.png" alt="Modpack"> 
+                 <div class="badge-content">
+                     <span class="badge-label">CURRENT SYSTEM</span>
+                     <span id="modpack-version-text">Minecraft Vanilla</span>
+                 </div>
+            </div> -->
+
+         
+            <div class="character-img-wrapper">
+            
+                <img src="./Nakanonino.png" class="character-art" alt="Nino Nakano">
             </div>
         </div>
+
     </div>
 
+  
     <script type="module" src="main.js"></script>
+
 </body>
 </html>
