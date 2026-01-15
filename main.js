@@ -128,10 +128,11 @@ try {
 
 window.copyIp = function () {
     const ipDisplay = document.getElementById('server-ip-display');
-    navigator.clipboard.writeText('models-kirk.gl.joinmc.link').then(() => {
+    navigator.clipboard.writeText('just-restaurant.gl.joinmc.link').then(() => {
         const originalText = ipDisplay.textContent;
         ipDisplay.textContent = "ก๊อปปี้เเล้วไอ้หัวดอ";
         setTimeout(() => { ipDisplay.textContent = originalText; }, 1500);
     });
 }
+
 
