@@ -1,0 +1,419 @@
+/* =========================================
+   THEME: STAR RAIL POSTER (DARK VARIANT)
+   ========================================= */
+
+:root {
+    /* Colors */
+    --bg-dark: #0b0d12;
+    --bg-dark-accent: #151921;
+    --primary-pink: #e65ea4; /* Miku/Fu Xuan Pink */
+    --primary-purple: #9d5bd2;
+    --text-white: #ffffff;
+    --text-gray: #8b9bb4;
+    --line-color: rgba(255, 255, 255, 0.15);
+    
+    /* Fonts */
+    --font-head: 'Orbitron', sans-serif;
+    --font-data: 'kanit', sans-serif;
+    --font-body: 'kanit', sans-serif;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: var(--bg-dark);
+    font-family: var(--font-body);
+    color: var(--text-white);
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+    position: relative;
+    display: flex; /* Centering helper */
+    align-items: center;
+    justify-content: center;
+}
+
+/* --- Backgrounds --- */
+.bg-layer {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: radial-gradient(circle at 80% 50%, #2a1b35 0%, var(--bg-dark) 60%);
+    z-index: -2;
+}
+
+.grid-overlay {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background-image: linear-gradient(var(--line-color) 1px, transparent 1px),
+                      linear-gradient(90deg, var(--line-color) 1px, transparent 1px);
+    background-size: 100px 100px;
+    opacity: 0.05;
+    z-index: -1;
+}
+
+/* --- Decorative Elements (The "Poster" Look) --- */
+.deco-line-left {
+    position: absolute;
+    left: 60px;
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    background: var(--line-color);
+    z-index: 10;
+}
+
+.deco-text {
+    position: absolute;
+    bottom: 120px;
+    left: -8px; 
+    transform: rotate(-90deg);
+    transform-origin: left bottom;
+    white-space: nowrap;
+    color: var(--text-gray);
+    font-family: var(--font-data);
+    letter-spacing: 4px;
+    font-size: 12px;
+    text-transform: uppercase;
+}
+
+/* --- Main Layout Grid --- */
+.poster-container {
+    width: 90%;
+    height: 90%;
+    max-width: 1600px;
+    display: grid;
+    grid-template-columns: 1.2fr 1fr; /* 60% Info, 40% Char */
+    position: relative;
+    z-index: 5;
+}
+
+/* --- LEFT COLUMN: Info --- */
+.info-section {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-left: 80px; /* Offset from deco line */
+    gap: 40px;
+}
+
+/* Header */
+.header-group {
+    position: relative;
+}
+.header-group::before {
+    content: '';
+    position: absolute;
+    left: -20px; top: 10px; bottom: 10px;
+    width: 4px;
+    background: var(--primary-pink);
+}
+
+.sub-label {
+    font-family: var(--font-data);
+    color: var(--text-gray);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-size: 14px;
+    margin-bottom: 5px;
+}
+
+.main-title {
+    font-family: var(--font-body); /* Using Thai supporting font */
+    font-size: 4rem;
+    line-height: 1.1;
+    font-weight: 700;
+    text-transform: uppercase;
+    text-shadow: 0 0 30px rgba(230, 94, 164, 0.4);
+}
+
+.highlight {
+    color: var(--primary-pink);
+}
+
+.desc {
+    color: var(--text-gray);
+    margin-top: 10px;
+    font-size: 1.2rem;
+    font-weight: 300;
+}
+
+/* Stats Row (Icons + Data) */
+.stats-row {
+    display: flex;
+    gap: 40px;
+    border-top: 1px solid var(--line-color);
+    border-bottom: 1px solid var(--line-color);
+    padding: 20px 0;
+}
+
+.data-point {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.data-point .icon {
+    font-size: 1.5rem;
+    color: var(--primary-purple);
+}
+
+.data-text {
+    display: flex;
+    flex-direction: column;
+}
+
+.data-text .label {
+    font-family: var(--font-data);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--text-gray);
+}
+
+.data-text .value {
+    font-family: var(--font-data);
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #fff;
+    line-height: 1;
+}
+
+/* Player List (Agents) */
+.player-section {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.section-title {
+    font-family: var(--font-data);
+    color: var(--primary-pink);
+    font-size: 14px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-weight: 700;
+}
+
+.player-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    max-width: 600px;
+}
+
+/* Styled Chips from Main.js */
+.player-chip {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid var(--line-color);
+    padding: 5px 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: all 0.3s ease;
+}
+
+.player-chip:hover {
+    background: rgba(230, 94, 164, 0.2);
+    border-color: var(--primary-pink);
+    transform: translateY(-2px);
+}
+
+.player-chip img {
+    width: 24px;
+    height: 24px;
+    border-radius: 2px;
+}
+
+.player-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.player-name {
+    font-family: var(--font-data);
+    font-weight: 700;
+    font-size: 14px;
+    color: var(--text-white);
+}
+
+.player-time {
+    font-size: 10px;
+    color: var(--text-gray);
+    display: none; /* Hide time for cleaner look, or show if user wants */
+}
+
+.empty-message {
+    color: var(--text-gray);
+    font-style: italic;
+    font-size: 12px;
+}
+
+/* IP Box */
+.ip-box {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+}
+
+.ip-label {
+    font-family: var(--font-data);
+    font-size: 10px;
+    color: var(--primary-purple);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+.ip-display {
+    background: transparent;
+    border: 1px dashed var(--text-gray);
+    color: #fff;
+    padding: 10px 20px;
+    font-family: var(--font-data);
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.ip-display:hover {
+    border-color: var(--primary-pink);
+    color: var(--primary-pink);
+    background: rgba(230, 94, 164, 0.05);
+}
+
+/* --- RIGHT COLUMN: Character --- */
+.character-section {
+    position: relative;
+    height: 100%;
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+}
+
+.character-img-wrapper {
+    position: absolute;
+    bottom: -10%; /* Hang off screen slightly */
+    right: -10%;
+    height: 110%;
+    width: auto;
+    z-index: 10;
+    animation: drift 10s ease-in-out infinite alternate;
+}
+
+.character-art {
+    position: relative;
+   right: 15px;
+    height: 100%;
+    width: auto;
+    object-fit: contain;
+    /* Soft Fade at bottom */
+    mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
+    filter: drop-shadow(0 0 50px rgba(0,0,0,0.5));
+}
+
+@keyframes drift {
+    from { transform: translateY(0px) rotate(0deg); }
+    to { transform: translateY(-20px) rotate(1deg); }
+}
+
+/* Modpack Badge Top Right (Small Capsule) */
+.modpack-badge {
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    z-index: 50;
+    
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    
+    background: rgba(15, 23, 42, 0.6);
+    backdrop-filter: blur(8px);
+    border: 1px solid var(--line-color);
+    border-radius: 30px; /* Capsule Shape */
+    padding: 8px 16px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+    
+    transition: transform 0.3s ease;
+}
+
+.modpack-badge:hover {
+    transform: translateY(-2px);
+    border-color: var(--primary-pink);
+}
+
+.modpack-badge img {
+    width: 28px;
+    height: 28px;
+    border-radius: 6px;
+    object-fit: contain;
+}
+
+.badge-content {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.1;
+}
+
+.badge-label {
+    font-family: var(--font-data);
+    font-size: 8px;
+    color: var(--text-gray);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+#modpack-version-text {
+    font-family: var(--font-body); /* Readable font */
+    font-size: 12px;
+    color: var(--text-white);
+    font-weight: 700;
+}
+
+/* --- Mobile Responsive --- */
+@media (max-width: 1024px) {
+    body {
+        overflow-y: auto; /* Allow Scroll */
+        height: auto;
+        display: block;
+    }
+    
+    .poster-container {
+        grid-template-columns: 1fr;
+        padding-top: 60px;
+        width: 100%;
+    }
+
+    .info-section {
+        padding-left: 30px; /* Smaller padding */
+        padding-right: 30px;
+        z-index: 20;
+    }
+
+    .deco-line-left { left: 15px; }
+
+    .main-title { font-size: 2.5rem; }
+
+    .character-img-wrapper {
+        position: fixed;
+        bottom: 0;
+        right: -20%;
+        height: 60vh;
+        z-index: -1;
+        opacity: 0.3; /* Fade out character */
+    }
+
+    .stats-row {
+        flex-wrap: wrap;
+        gap: 20px;
+    }
+}
