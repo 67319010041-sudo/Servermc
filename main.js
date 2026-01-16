@@ -33,7 +33,7 @@ try {
     const serverIcon = document.getElementById('server-icon');
     const ipDisplay = document.getElementById('server-ip-display');
 
-    if (ipDisplay) ipDisplay.textContent = 'just-restaurant.gl.joinmc.link';
+    if (ipDisplay) ipDisplay.textContent = 'models-kirk.gl.joinmc.link';
 
     // Listener
     const statusRef = ref(db, 'status');
@@ -41,9 +41,14 @@ try {
     onValue(statusRef, (snapshot) => {
         const data = snapshot.val();
 
-        const isStale = !data || (Date.now() - data.lastUpdated > 30000);
+        // DEBUG: Force show data even if old
+        // const isStale = !data || (Date.now() - data.lastUpdated > 30000);
+        const isStale = false;
 
-        if (data && data.online && !isStale) {
+        console.log("[FRONTEND] Received Data:", data);
+        console.log("[FRONTEND] Timestamp Diff:", data ? Date.now() - data.lastUpdated : "No Data");
+
+        if (data && data.online) {
             updateUI(true, data);
         } else {
             updateUI(false, null);
@@ -83,12 +88,14 @@ try {
                 if (!modpackBadge && badgeContainer) {
                     const badgeHtml = `
                     <div class="modpack-badge">
-                        <img id="modpack-image" src="${data.modpack.icon || 'https://assets.sticky.gg/icons/minecraft.png'}" alt="Modpack"> 
+                        <img id="modpack-image" 
+                             src="${(data.modpack && data.modpack.icon) ? data.modpack.icon : 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAIAAAAlC+aJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAHaSURBVGhD7Zo9bsMwDEWH0rqWruU+WbmWrl26lq7lPlm5Vkp9gQ5CQJAAyR9Fv2fIEiCYKPLzI/X7/X4+n7/f76fT6fl8fr1eX6/X1+v1/X5/v9/f7/fP5/PxeDwej8fj8fl8/v8hCgBQAIACAAAgAIAAAIAAAIAAAIAAAIAAAIAAAIAAAIAAAIAAAIAAAIAAAIAAAIAAAIAAAIAAAIAAAIAAAIAAAIAAAIAAAIAAAIAAAIAAAIAAAIAAAIAAAIAAAIAAAIAAAIAAAIAAAIAAAIAAAIAAAIC/wA8PDw8PDw8PDw8PDw8PDw8/B/w+39/f/u+f35+fn5+fn5+fn5+fn5+Pv4M+Pz8/Pr6+vr6+vr6+vr6+vr6+vg74O3t7e3t7e3t7e3t7e3t7e3t7eH/AMr3+4P9/f39/f39/f39/f39/f35M+D9/f39/f39/f39/f39/f39/fnzJ0BQAIAAAIAAAIAAAIAAAIAAAIAAAIAAAIAAAIAAAIAAAIAAAIAAAIAAAIAAAIAAAIAAAIAAAIAAAIAAAIAAAIAAAIAAAIAAAIAAAIAAAIAAAIAAAIAAAIAAAIAAAMBfAPwECAAAgAAAgAAAgAAAgAAAgAAAgAAA/wB8fHx8fHwAAAAASUVORK5CYII='}" 
+                             alt="Modpack">
                         <div class="badge-content">
                             <span class="badge-label">PLAYING ON</span>
                             <span id="modpack-version-text">${data.modpack.name}</span>
                         </div>
-                    </div>`;
+                    </div > `;
                     // Insert at top of container or specific place
                     // Attempt to insert before image wrapper if possible, or append
                     const imgWrapper = badgeContainer.querySelector('.character-img-wrapper');
@@ -131,150 +138,19 @@ try {
                         chip.className = 'player-chip'; // Styled in CSS
                         const headUrl = `https://minotar.net/avatar/${name}/64.png`; // Bigger Quality
 
-                        chip.innerHTML = `
-                            <img src="${headUrl}" alt="${name}">
-                            <div class="player-info">
-                                <span class="player-name">${name}</span>
-                                <span class="player-time">เล่นมาแล้ว ${time} นาที</span>
-                            </div>
-                        `;
-                        playerList.appendChild(chip);
-                    });
-                } else {
-                    playerList.innerHTML = '<div class="empty-message">ไม่มีคนเล่นโว้ย...</div>';
-                }
-            }
-
-        } else {
-            // Offline
-            if (statusIndicator) statusIndicator.className = 'status-badge offline';
-            if (statusText) statusText.innerHTML = '</i> ออฟไลน์';
-            if (playerCount) playerCount.textContent = "- / -";
-            if (pingDisplay) {
-                pingDisplay.textContent = "--";
-                pingDisplay.className = '';
-            }
-            if (playerList) playerList.innerHTML = '<div class="empty-message">Server ปิดอยู่จ้า</div>';
-        }
-    }
-
-} catch (error) {
-    logDebug("Config Error: " + error.message);
-}
-
-window.copyIp = function () {
-    const ipDisplay = document.getElementById('server-ip-display');
-    navigator.clipboard.writeText('just-restaurant.gl.joinmc.link').then(() => {
-        const originalText = ipDisplay.textContent;
-        ipDisplay.textContent = "ก๊อปปี้เเล้วไอ้หัวดอ";
-        setTimeout(() => { ipDisplay.textContent = originalText; }, 1500);
-    });
-}
-
-
-
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
-
-// ==========================================
-// DEBUGGER
-// ==========================================
-function logDebug(msg) {
-    console.log(msg);
-}
-
-try {
-    const firebaseConfig = {
-        apiKey: "AIzaSyABlPDJhV63WB6xKJlQJYSvLPQYM4IcuGs",
-        authDomain: "servermc-eba6c.firebaseapp.com",
-        databaseURL: "https://servermc-eba6c-default-rtdb.asia-southeast1.firebasedatabase.app",
-        projectId: "servermc-eba6c",
-        storageBucket: "servermc-eba6c.firebasestorage.app",
-        messagingSenderId: "532748697920",
-        appId: "1:532748697920:web:295b265cc1bd9405783aa5",
-        measurementId: "G-YKR9Z0KKC6"
-    };
-
-    const app = initializeApp(firebaseConfig);
-    const db = getDatabase(app);
-
-    // DOM Elements
-    const statusIndicator = document.getElementById('status-indicator');
-    const statusText = document.querySelector('#status-indicator span');
-    const playerCount = document.getElementById('player-count');
-    const pingDisplay = document.getElementById('ping');
-    const versionDisplay = document.getElementById('version');
-    const playerList = document.getElementById('player-list');
-    const serverIcon = document.getElementById('server-icon');
-    const ipDisplay = document.getElementById('server-ip-display');
-
-    if (ipDisplay) ipDisplay.textContent = 'models-kirk.gl.joinmc.link';
-
-    // Listener
-    const statusRef = ref(db, 'status');
-
-    onValue(statusRef, (snapshot) => {
-        const data = snapshot.val();
-
-        const isStale = !data || (Date.now() - data.lastUpdated > 30000);
-
-        if (data && data.online && !isStale) {
-            updateUI(true, data);
-        } else {
-            updateUI(false, null);
-        }
-    });
-
-    function updateUI(isOnline, data) {
-        if (isOnline && data) {
-            // Online
-            if (statusIndicator) statusIndicator.className = 'status-badge online';
-            if (statusText) statusText.innerHTML = '</i> ออนไลน์';
-
-            if (playerCount) playerCount.textContent = `${data.players.online} / ${data.players.max}`;
-
-            if (versionDisplay) versionDisplay.textContent = data.version || "1.20.1";
-
-            // Ping Logic with Colors
-            const latency = data.ping || 1;
-            let pingClass = 'ping-green';
-            if (latency > 100) pingClass = 'ping-orange';
-            if (latency > 200) pingClass = 'ping-red';
-
-            if (pingDisplay) {
-                pingDisplay.textContent = latency + " ms";
-                pingDisplay.className = pingClass; // Apply Color
-            }
-
-            if (data.icon && serverIcon) serverIcon.src = data.icon;
-
-            // Player List
-            if (playerList) {
-                playerList.innerHTML = '';
-
-                let players = [];
-                if (Array.isArray(data.players.list)) {
-                    players = data.players.list;
-                } else if (data.players.list && typeof data.players.list === 'object') {
-                    players = Object.values(data.players.list);
-                }
-
-                if (players.length > 0) {
-                    players.forEach(p => {
-                        const name = (typeof p === 'object') ? p.name : p;
-                        const time = (typeof p === 'object') ? p.time : 0;
-
-                        if (!name) return;
-
-                        const chip = document.createElement('div');
-                        chip.className = 'player-chip'; // Styled in CSS
-                        const headUrl = `https://minotar.net/avatar/${name}/64.png`; // Bigger Quality
+                        // Format Time
+                        let timeStr = `${time} นาที`;
+                        if (time >= 60) {
+                            const hrs = Math.floor(time / 60);
+                            const mins = time % 60;
+                            timeStr = `${hrs} ชม. ${mins} นาที`;
+                        }
 
                         chip.innerHTML = `
                             <img src="${headUrl}" alt="${name}">
                             <div class="player-info">
                                 <span class="player-name">${name}</span>
-                                <span class="player-time">เล่นมาแล้ว ${time} นาที</span>
+                                <span class="player-time">เล่นมาแล้ว ${timeStr}</span>
                             </div>
                         `;
                         playerList.appendChild(chip);
@@ -309,6 +185,3 @@ window.copyIp = function () {
         setTimeout(() => { ipDisplay.textContent = originalText; }, 1500);
     });
 }
-
-
-
