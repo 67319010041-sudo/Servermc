@@ -243,7 +243,9 @@ body {
 .player-time {
     font-size: 10px;
     color: var(--text-gray);
-    display: none; /* Hide time for cleaner look, or show if user wants */
+    display: block; /* Show time */
+    font-size: 11px;
+    margin-top: 2px;
 }
 
 .empty-message {
@@ -327,14 +329,16 @@ body {
 
 /* Modpack Badge Top Right (Small Capsule) */
 .modpack-badge {
+    height: 100px;
+    width: 240px;
     position: absolute;
-    top: 20px;
+    top: 40px;
     right: 500px;
-    z-index: 50;
+    z-index: 80;
     
     display: flex;
     align-items: center;
-    gap: 30px;
+    gap: 50px;
     
     background: rgba(15, 23, 42, 0.6);
     backdrop-filter: blur(8px);
@@ -352,8 +356,8 @@ body {
 }
 
 .modpack-badge img {
-    width: 28px;
-    height: 28px;
+    width: 70px;
+    height: 70px;
     border-radius: 6px;
     object-fit: contain;
 }
