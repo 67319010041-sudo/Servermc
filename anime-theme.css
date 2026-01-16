@@ -328,18 +328,18 @@ body {
 /* Modpack Badge Top Right (Small Capsule) */
 .modpack-badge {
     position: absolute;
-    top: 30px;
-    right: 30px;
+    top: 20px;
+    right: 500px;
     z-index: 50;
     
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 30px;
     
     background: rgba(15, 23, 42, 0.6);
     backdrop-filter: blur(8px);
     border: 1px solid var(--line-color);
-    border-radius: 30px; /* Capsule Shape */
+    border-radius: 20px; /* Capsule Shape */
     padding: 8px 16px;
     box-shadow: 0 4px 20px rgba(0,0,0,0.3);
     
@@ -417,3 +417,4 @@ body {
         gap: 20px;
     }
 }
+
